@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nugget Ninja Challenge</title>
+    <title>RMHC Nugget Ninja Challenge</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -13,6 +13,7 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            background-color: #FFF8E1;
         }
 
         header {
@@ -21,9 +22,23 @@
             padding: 20px;
             text-align: center;
             width: 100%;
-        }
+            border-bottom: 10px solid #E21836;
+            background-color: #FFC72C;
 
+        }
+        
         h1 {
+            color: #E21836;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: #B30000;
+            font-size: 1.8rem;
             margin: 0;
         }
 
@@ -38,9 +53,10 @@
             margin-top: 20px;
             width: 80%;
             max-width: 600px;
+            background-color: #fff;
         }
 
-        #game-container {
+          #game-container {
             position: relative;
             width: 300px;
             height: 400px;
@@ -49,14 +65,14 @@
             margin-top: 20px;
         }
 
-        #player {
+         #player {
             position: absolute;
             bottom: 0;
             left: 50%;
             width: 30px;
             height: 30px;
-            background-image: url('images/ninja.png'); /* Replace with actual image */
-            background-size: cover;
+          background-image: url('images/nugget_mascot.png'); /* Replace with actual image */
+          background-size: contain;
             transform: translateX(-50%);
         }
 
@@ -113,10 +129,10 @@
 </head>
 <body>
     <header>
-        <h1>Nugget Ninja Challenge</h1>
+      <h1>Nugget Ninja Challenge</h1>
     </header>
 
-    <main>
+    <main>    
         <p>Collect as many nuggets as you can! Use left and right arrow keys to move.</p>
         <div id="game-container">
             <div id="player"></div>
