@@ -1,783 +1,837 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RMHC Nugget Ninja Challenge</title>
     <style>
-        :root {
-            --rmhc-yellow: #FFC72C;
-            --rmhc-red: #E21836;
-            --dark-red: #B30000;
-        }
-        
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #FFF8E1;
-            height: 100%;
-        }
-        
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            background-color: var(--rmhc-yellow);
-            padding: 20px 0;
-            text-align: center;
-            border-bottom: 10px solid var(--rmhc-red);
-        }
-        
-        .logo-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .logo {
-            width: 120px;
-            height: auto;
-        }
-        
+      :root {
+        --rmhc-yellow: #ffc72c;
+        --rmhc-red: #e21836;
+        --dark-red: #b30000;
+      }
+
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #fff8e1;
+        height: 100%;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      header {
+        background-color: var(--rmhc-yellow);
+        padding: 20px 0;
+        text-align: center;
+        border-bottom: 10px solid var(--rmhc-red);
+      }
+
+      .logo-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .logo {
+        background: url("/assets/images/rmhc-logo.png");
+        width: 120px;
+        height: auto;
+      }
+
+      h1 {
+        color: var(--rmhc-red);
+        font-size: 2.5rem;
+        margin: 20px 0;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: bold;
+        text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        color: var(--dark-red);
+        font-size: 1.8rem;
+        margin: 15px 0;
+        text-align: center;
+      }
+
+      .tagline {
+        font-size: 1.5rem;
+        color: var(--dark-red);
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .ninja-mascot {
+        max-width: 200px;
+        margin: 0 auto;
+        display: block;
+      }
+
+      .egg-decoration {
+        max-width: 80px;
+        margin: 10px auto;
+        display: block;
+      }
+
+      .card {
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 20px 0;
+      }
+
+      .btn {
+        background-color: var(--rmhc-red);
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 30px;
+        font-size: 1.2rem;
+        cursor: pointer;
+        font-weight: bold;
+        display: block;
+        margin: 20px auto;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+      }
+
+      .btn:hover {
+        background-color: var(--dark-red);
+        transform: scale(1.05);
+      }
+
+      .game-area {
+        text-align: center;
+        margin: 30px 0;
+        display: none;
+      }
+
+      .login-form,
+      .signup-form {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: var(--dark-red);
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+      }
+
+      .timer {
+        font-size: 3rem;
+        font-weight: bold;
+        margin: 20px 0;
+        color: var(--rmhc-red);
+      }
+
+      .nugget-container {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .nugget {
+        width: 80px;
+        height: 60px;
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSI+PHBhdGggZD0iTTcwIDMwQzcwIDQyLjA5IDYwLjA5IDUyIDQ4IDUySDMyQzE5LjkxIDUyIDEwIDQyLjA5IDEwIDMwQzEwIDE3LjkxIDE5LjkxIDggMzIgOEg0OEM2MC4wOSA4IDcwIDE3LjkxIDcwIDMwWiIgZmlsbD0iI0ZGQzk0RCIgc3Ryb2tlPSIjRTg4RjBDIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=");
+        background-size: contain;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .nugget:hover {
+        transform: scale(1.1);
+      }
+
+      .nugget.eaten {
+        opacity: 0.3;
+      }
+
+      .leaderboard {
+        margin-top: 30px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: var(--rmhc-yellow);
+        color: var(--rmhc-red);
+      }
+
+      .tab-container {
+        margin: 20px 0;
+      }
+
+      .tab-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .tab-btn {
+        background-color: #eee;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-weight: bold;
+      }
+
+      .tab-btn.active {
+        background-color: var(--rmhc-yellow);
+        color: var(--rmhc-red);
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      .donation-info {
+        background-color: var(--rmhc-yellow);
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .donation-info p {
+        margin: 5px 0;
+        font-size: 1.1rem;
+      }
+
+      .donation-amount {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--rmhc-red);
+      }
+
+      footer {
+        background-color: var(--rmhc-red);
+        color: white;
+        text-align: center;
+        padding: 20px 0;
+        margin-top: 40px;
+      }
+
+      .countdown-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 5rem;
+        color: white;
+        z-index: 100;
+        display: none;
+      }
+
+      .congratulations {
+        text-align: center;
+        padding: 20px;
+        background-color: var(--rmhc-yellow);
+        border-radius: 10px;
+        margin: 20px 0;
+        display: none;
+      }
+
+      .congratulations h2 {
+        color: var(--rmhc-red);
+        margin-top: 0;
+      }
+
+      .game-over {
+        text-align: center;
+        padding: 20px;
+        background-color: #f8d7da;
+        border-radius: 10px;
+        margin: 20px 0;
+        display: none;
+      }
+
+      @media (max-width: 768px) {
         h1 {
-            color: var(--rmhc-red);
-            font-size: 2.5rem;
-            margin: 20px 0;
-            text-align: center;
-            text-transform: uppercase;
-            font-weight: bold;
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+          font-size: 2rem;
         }
-        
-        h2 {
-            color: var(--dark-red);
-            font-size: 1.8rem;
-            margin: 15px 0;
-            text-align: center;
-        }
-        
-        .tagline {
-            font-size: 1.5rem;
-            color: var(--dark-red);
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .ninja-mascot {
-            max-width: 200px;
-            margin: 0 auto;
-            display: block;
-        }
-        
-        .egg-decoration {
-            max-width: 80px;
-            margin: 10px auto;
-            display: block;
-        }
-        
-        .card {
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            padding: 20px;
-            margin: 20px 0;
-        }
-        
-        .btn {
-            background-color: var(--rmhc-red);
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            font-weight: bold;
-            display: block;
-            margin: 20px auto;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
-        
-        .btn:hover {
-            background-color: var(--dark-red);
-            transform: scale(1.05);
-        }
-        
-        .game-area {
-            text-align: center;
-            margin: 30px 0;
-            display: none;
-        }
-        
-        .login-form, .signup-form {
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: var(--dark-red);
-        }
-        
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-        
-        .timer {
-            font-size: 3rem;
-            font-weight: bold;
-            margin: 20px 0;
-            color: var(--rmhc-red);
-        }
-        
+
         .nugget-container {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            max-width: 500px;
-            margin: 0 auto;
+          grid-template-columns: repeat(4, 1fr);
         }
-        
+
         .nugget {
-            width: 80px;
-            height: 60px;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4MCA2MCIgZmlsbD0ibm9uZSI+PHBhdGggZD0iTTcwIDMwQzcwIDQyLjA5IDYwLjA5IDUyIDQ4IDUySDMyQzE5LjkxIDUyIDEwIDQyLjA5IDEwIDMwQzEwIDE3LjkxIDE5LjkxIDggMzIgOEg0OEM2MC4wOSA4IDcwIDE3LjkxIDcwIDMwWiIgZmlsbD0iI0ZGQzk0RCIgc3Ryb2tlPSIjRTg4RjBDIiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=');
-            background-size: contain;
-            background-repeat: no-repeat;
-            cursor: pointer;
-            transition: all 0.2s ease;
+          width: 60px;
+          height: 45px;
         }
-        
-        .nugget:hover {
-            transform: scale(1.1);
-        }
-        
-        .nugget.eaten {
-            opacity: 0.3;
-        }
-        
-        .leaderboard {
-            margin-top: 30px;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        th {
-            background-color: var(--rmhc-yellow);
-            color: var(--rmhc-red);
-        }
-        
-        .tab-container {
-            margin: 20px 0;
-        }
-        
-        .tab-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .tab-btn {
-            background-color: #eee;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-        
-        .tab-btn.active {
-            background-color: var(--rmhc-yellow);
-            color: var(--rmhc-red);
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .donation-info {
-            background-color: var(--rmhc-yellow);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            margin: 20px 0;
-        }
-        
-        .donation-info p {
-            margin: 5px 0;
-            font-size: 1.1rem;
-        }
-        
-        .donation-amount {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--rmhc-red);
-        }
-        
-        footer {
-            background-color: var(--rmhc-red);
-            color: white;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
-        }
-        
-        .countdown-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 5rem;
-            color: white;
-            z-index: 100;
-            display: none;
-        }
-        
-        .congratulations {
-            text-align: center;
-            padding: 20px;
-            background-color: var(--rmhc-yellow);
-            border-radius: 10px;
-            margin: 20px 0;
-            display: none;
-        }
-        
-        .congratulations h2 {
-            color: var(--rmhc-red);
-            margin-top: 0;
-        }
-        
-        .game-over {
-            text-align: center;
-            padding: 20px;
-            background-color: #f8d7da;
-            border-radius: 10px;
-            margin: 20px 0;
-            display: none;
-        }
-        
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .nugget-container {
-                grid-template-columns: repeat(4, 1fr);
-            }
-            
-            .nugget {
-                width: 60px;
-                height: 45px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="countdown-overlay" id="countdownOverlay">
-        <div id="countdown">3</div>
+      <div id="countdown">3</div>
     </div>
-    
+
     <header>
-        <div class="logo-container">
-            <img src="/api/placeholder/120/120" alt="RMHC Logo" class="logo" id="rmhcLogo">
-            <img src="/api/placeholder/120/120" alt="McDonald's Logo" class="logo" id="mcdonaldsLogo">
-        </div>
+      <div class="logo-container">
+        <img src="/rmhc-logo.png" alt="RMHC Logo" class="logo" id="rmhcLogo" />
+        <img
+          src="/mc.jpg"
+          alt="McDonald's Logo"
+          class="logo"
+          id="mcdonaldsLogo"
+        />
+      </div>
     </header>
-    
+
     <div class="container">
-        <img src="/api/placeholder/80/80" alt="Easter Egg" class="egg-decoration" id="easterEgg">
-        <h1>Nugget Ninja Challenge</h1>
-        <h2>EGG-CELLENT EASTER 2025 • SOUTHEND</h2>
-        
-        <div class="tagline">Eat 20 chicken nuggets as fast as possible!</div>
-        
-        <img src="/api/placeholder/200/200" alt="Nugget Ninja Mascot" class="ninja-mascot" id="ninjaMascot">
-        
-        <div class="donation-info">
-            <p>Entry Fee: <span class="donation-amount">£5.00</span></p>
-            <p>100% of your donation goes to Ronald McDonald House Charities</p>
-            <p>Winner gets a <span class="donation-amount">£20 McDonald's Food Voucher</span></p>
+      <img
+        src="/egg.png"
+        alt="Easter Egg"
+        class="egg-decoration"
+        id="easterEgg"
+      />
+      <h1>Nugget Ninja Challenge</h1>
+      <h2>EGG-CELLENT EASTER 2025 • SOUTHEND</h2>
+
+      <div class="tagline">Eat 20 chicken nuggets as fast as possible!</div>
+
+      <img
+        src="/nugget.png"
+        alt="Nugget Ninja Mascot"
+        class="ninja-mascot"
+        id="ninjaMascot"
+      />
+
+      <div class="donation-info">
+        <p>Entry Fee: <span class="donation-amount">£5.00</span></p>
+        <p>100% of your donation goes to Ronald McDonald House Charities</p>
+        <p>
+          Winner gets a
+          <span class="donation-amount">£20 McDonald's Food Voucher</span>
+        </p>
+      </div>
+
+      <div class="tab-container">
+        <div class="tab-buttons">
+          <button class="tab-btn active" onclick="openTab('home')">Home</button>
+          <button class="tab-btn" onclick="openTab('login')">Login</button>
+          <button class="tab-btn" onclick="openTab('signup')">Sign Up</button>
+          <button class="tab-btn" onclick="openTab('leaderboard')">
+            Leaderboard
+          </button>
         </div>
-        
-        <div class="tab-container">
-            <div class="tab-buttons">
-                <button class="tab-btn active" onclick="openTab('home')">Home</button>
-                <button class="tab-btn" onclick="openTab('login')">Login</button>
-                <button class="tab-btn" onclick="openTab('signup')">Sign Up</button>
-                <button class="tab-btn" onclick="openTab('leaderboard')">Leaderboard</button>
-            </div>
-            
-            <div id="home" class="tab-content active">
-                <div class="card">
-                    <h2>How To Play</h2>
-                    <ol>
-                        <li>Sign up and donate £5.00 to RMHC</li>
-                        <li>Login to access the game</li>
-                        <li>Click on nuggets to "eat" them as fast as you can</li>
-                        <li>Try to eat all 20 nuggets within 5 minutes</li>
-                        <li>Your time will be recorded on the leaderboard</li>
-                        <li>The fastest player wins a £20 McDonald's voucher!</li>
-                    </ol>
-                    <button class="btn" onclick="openTab('signup')">Join The Challenge</button>
-                </div>
-                
-                <div class="card">
-                    <h2>About Ronald McDonald House Charities</h2>
-                    <p>Ronald McDonald House Charities UK keeps families close to their children in hospital by providing free 'home away from home' accommodation and support. Your £5 donation helps us continue this vital work.</p>
-                    <p>Join the Nugget Ninja Challenge this Easter and help make a difference!</p>
-                </div>
-            </div>
-            
-            <div id="login" class="tab-content">
-                <div class="card">
-                    <h2>Login</h2>
-                    <div class="login-form">
-                        <div class="form-group">
-                            <label for="loginEmail">Email:</label>
-                            <input type="email" id="loginEmail" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="loginPassword">Password:</label>
-                            <input type="password" id="loginPassword" required>
-                        </div>
-                        <button class="btn" onclick="loginUser()">Login</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="signup" class="tab-content">
-                <div class="card">
-                    <h2>Sign Up & Donate</h2>
-                    <div class="signup-form">
-                        <div class="form-group">
-                            <label for="signupName">Full Name:</label>
-                            <input type="text" id="signupName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="signupEmail">Email:</label>
-                            <input type="email" id="signupEmail" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="signupPassword">Password:</label>
-                            <input type="password" id="signupPassword" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="donation">Donation Amount:</label>
-                            <input type="text" id="donation" value="£5.00" readonly>
-                        </div>
-                        <div class="form-group">
-                            <input type="checkbox" id="agreeTerms">
-                            <label for="agreeTerms">I agree to participate in the Nugget Ninja Challenge and donate to RMHC</label>
-                        </div>
-                        <button class="btn" onclick="signupUser()">Sign Up & Donate</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="leaderboard" class="tab-content">
-                <div class="card">
-                    <h2>Leaderboard</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Rank</th>
-                                <th>Name</th>
-                                <th>Time</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody id="leaderboardTable">
-                            <!-- Leaderboard data will be inserted here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+
+        <div id="home" class="tab-content active">
+          <div class="card">
+            <h2>How To Play</h2>
+            <ol>
+              <li>Sign up and donate £5.00 to RMHC</li>
+              <li>Login to access the game</li>
+              <li>Click on nuggets to "eat" them as fast as you can</li>
+              <li>Try to eat all 20 nuggets within 5 minutes</li>
+              <li>Your time will be recorded on the leaderboard</li>
+              <li>The fastest player wins a £20 McDonald's voucher!</li>
+            </ol>
+            <button class="btn" onclick="openTab('signup')">
+              Join The Challenge
+            </button>
+          </div>
+
+          <div class="card">
+            <h2>About Ronald McDonald House Charities</h2>
+            <p>
+              Ronald McDonald House Charities UK keeps families close to their
+              children in hospital by providing free 'home away from home'
+              accommodation and support. Your £5 donation helps us continue this
+              vital work.
+            </p>
+            <p>
+              Join the Nugget Ninja Challenge this Easter and help make a
+              difference!
+            </p>
+          </div>
         </div>
-        
-        <div id="gameArea" class="game-area">
-            <h2>Nugget Ninja Challenge</h2>
-            <div class="timer" id="timer">5:00</div>
-            <div class="nugget-container" id="nuggetContainer">
-                <!-- Nuggets will be inserted here -->
+
+        <div id="login" class="tab-content">
+          <div class="card">
+            <h2>Login</h2>
+            <div class="login-form">
+              <div class="form-group">
+                <label for="loginEmail">Email:</label>
+                <input type="email" id="loginEmail" required />
+              </div>
+              <div class="form-group">
+                <label for="loginPassword">Password:</label>
+                <input type="password" id="loginPassword" required />
+              </div>
+              <button class="btn" onclick="loginUser()">Login</button>
             </div>
-            <button class="btn" id="startGameBtn" onclick="startGame()">Start Challenge</button>
-            
-            <div class="congratulations" id="congratulations">
-                <h2>Congratulations, Nugget Ninja!</h2>
-                <p>You ate all 20 nuggets in <span id="finalTime">0:00</span>!</p>
-                <p>Your time has been recorded on the leaderboard.</p>
-                <button class="btn" onclick="resetGame()">Play Again</button>
-            </div>
-            
-            <div class="game-over" id="gameOver">
-                <h2>Game Over!</h2>
-                <p>You ran out of time!</p>
-                <p>Try again to beat the challenge and get on the leaderboard.</p>
-                <button class="btn" onclick="resetGame()">Try Again</button>
-            </div>
+          </div>
         </div>
+
+        <div id="signup" class="tab-content">
+          <div class="card">
+            <h2>Sign Up & Donate</h2>
+            <div class="signup-form">
+              <div class="form-group">
+                <label for="signupName">Full Name:</label>
+                <input type="text" id="signupName" required />
+              </div>
+              <div class="form-group">
+                <label for="signupEmail">Email:</label>
+                <input type="email" id="signupEmail" required />
+              </div>
+              <div class="form-group">
+                <label for="signupPassword">Password:</label>
+                <input type="password" id="signupPassword" required />
+              </div>
+              <div class="form-group">
+                <label for="donation">Donation Amount:</label>
+                <input type="text" id="donation" value="£5.00" readonly />
+              </div>
+              <div class="form-group">
+                <input type="checkbox" id="agreeTerms" />
+                <label for="agreeTerms"
+                  >I agree to participate in the Nugget Ninja Challenge and
+                  donate to RMHC</label
+                >
+              </div>
+              <button class="btn" onclick="signupUser()">
+                Sign Up & Donate
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="leaderboard" class="tab-content">
+          <div class="card">
+            <h2>Leaderboard</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Name</th>
+                  <th>Time</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboardTable">
+                <!-- Leaderboard data will be inserted here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="gameArea" class="game-area">
+        <h2>Nugget Ninja Challenge</h2>
+        <div class="timer" id="timer">5:00</div>
+        <div class="nugget-container" id="nuggetContainer">
+          <!-- Nuggets will be inserted here -->
+        </div>
+        <button class="btn" id="startGameBtn" onclick="startGame()">
+          Start Challenge
+        </button>
+
+        <div class="congratulations" id="congratulations">
+          <h2>Congratulations, Nugget Ninja!</h2>
+          <p>You ate all 20 nuggets in <span id="finalTime">0:00</span>!</p>
+          <p>Your time has been recorded on the leaderboard.</p>
+          <button class="btn" onclick="resetGame()">Play Again</button>
+        </div>
+
+        <div class="game-over" id="gameOver">
+          <h2>Game Over!</h2>
+          <p>You ran out of time!</p>
+          <p>Try again to beat the challenge and get on the leaderboard.</p>
+          <button class="btn" onclick="resetGame()">Try Again</button>
+        </div>
+      </div>
     </div>
-    
+
     <footer>
-        <p>© 2025 Ronald McDonald House Charities. All Rights Reserved.</p>
-        <p>This event takes place on April 12, 2025 from 12-4 PM at Southend.</p>
+      <p>© 2025 Ronald McDonald House Charities. All Rights Reserved.</p>
+      <p>This event takes place on April 12, 2025 from 12-4 PM at Southend.</p>
     </footer>
 
     <script>
-        // Sample leaderboard data
-        const leaderboardData = [
-            {rank: 1, name: "Ninja Master", time: "1:32", date: "03/04/2025"},
-            {rank: 2, name: "Nugget Champion", time: "1:45", date: "02/04/2025"},
-            {rank: 3, name: "Speed Eater", time: "2:03", date: "01/04/2025"},
-            {rank: 4, name: "Quick Bite", time: "2:17", date: "03/04/2025"},
-            {rank: 5, name: "Hungry Hero", time: "2:29", date: "02/04/2025"}
-        ];
-        
-        // Current user
-        let currentUser = null;
-        
-        // Game variables
-        let timer;
-        let timeLeft = 300; // 5 minutes in seconds
-        let nuggetsEaten = 0;
-        let gameInProgress = false;
-        
-        // Initialize the page
-        window.onload = function() {
-            populateLeaderboard();
-            // Add the mascot image from the provided images
-            document.getElementById('ninjaMascot').src = "/api/placeholder/200/200"; // This would be replaced with actual image
-            document.getElementById('rmhcLogo').src = "/api/placeholder/120/120"; // This would be replaced with actual logo
-            document.getElementById('mcdonaldsLogo').src = "/api/placeholder/120/120"; // This would be replaced with actual logo
-            document.getElementById('easterEgg').src = "/api/placeholder/80/80"; // This would be replaced with actual image
-        };
-        
-        // Tab functionality
-        function openTab(tabName) {
-            // Hide all tab contents
-            const tabContents = document.getElementsByClassName('tab-content');
-            for (let i = 0; i < tabContents.length; i++) {
-                tabContents[i].classList.remove('active');
-            }
-            
-            // Deactivate all tab buttons
-            const tabButtons = document.getElementsByClassName('tab-btn');
-            for (let i = 0; i < tabButtons.length; i++) {
-                tabButtons[i].classList.remove('active');
-            }
-            
-            // Show the selected tab content and activate its button
-            document.getElementById(tabName).classList.add('active');
-            
-            // Find and activate the corresponding button
-            const buttons = document.getElementsByClassName('tab-btn');
-            for (let i = 0; i < buttons.length; i++) {
-                if (buttons[i].textContent.toLowerCase().includes(tabName.toLowerCase())) {
-                    buttons[i].classList.add('active');
-                }
-            }
-            
-            // If game tab is selected and user is logged in, show game area
-            if (tabName === 'game' && currentUser) {
-                document.getElementById('gameArea').style.display = 'block';
-            }
+      // Sample leaderboard data
+      const leaderboardData = [
+        { rank: 1, name: "Ninja Master", time: "1:32", date: "03/04/2025" },
+        { rank: 2, name: "Nugget Champion", time: "1:45", date: "02/04/2025" },
+        { rank: 3, name: "Speed Eater", time: "2:03", date: "01/04/2025" },
+        { rank: 4, name: "Quick Bite", time: "2:17", date: "03/04/2025" },
+        { rank: 5, name: "Hungry Hero", time: "2:29", date: "02/04/2025" },
+      ];
+
+      // Current user
+      let currentUser = null;
+
+      // Game variables
+      let timer;
+      let timeLeft = 300; // 5 minutes in seconds
+      let nuggetsEaten = 0;
+      let gameInProgress = false;
+
+      // Initialize the page
+      window.onload = function () {
+        populateLeaderboard();
+        // Add the mascot image from the provided images
+        document.getElementById("ninjaMascot").src = "/api/placeholder/200/200"; // This would be replaced with actual image
+        document.getElementById("rmhcLogo").src = "/api/placeholder/120/120"; // This would be replaced with actual logo
+        document.getElementById("mcdonaldsLogo").src =
+          "/api/placeholder/120/120"; // This would be replaced with actual logo
+        document.getElementById("easterEgg").src = "/api/placeholder/80/80"; // This would be replaced with actual image
+      };
+
+      // Tab functionality
+      function openTab(tabName) {
+        // Hide all tab contents
+        const tabContents = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabContents.length; i++) {
+          tabContents[i].classList.remove("active");
         }
-        
-        // Populate leaderboard with sample data
-        function populateLeaderboard() {
-            const table = document.getElementById('leaderboardTable');
-            table.innerHTML = '';
-            
-            leaderboardData.forEach(entry => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
+
+        // Deactivate all tab buttons
+        const tabButtons = document.getElementsByClassName("tab-btn");
+        for (let i = 0; i < tabButtons.length; i++) {
+          tabButtons[i].classList.remove("active");
+        }
+
+        // Show the selected tab content and activate its button
+        document.getElementById(tabName).classList.add("active");
+
+        // Find and activate the corresponding button
+        const buttons = document.getElementsByClassName("tab-btn");
+        for (let i = 0; i < buttons.length; i++) {
+          if (
+            buttons[i].textContent.toLowerCase().includes(tabName.toLowerCase())
+          ) {
+            buttons[i].classList.add("active");
+          }
+        }
+
+        // If game tab is selected and user is logged in, show game area
+        if (tabName === "game" && currentUser) {
+          document.getElementById("gameArea").style.display = "block";
+        }
+      }
+
+      // Populate leaderboard with sample data
+      function populateLeaderboard() {
+        const table = document.getElementById("leaderboardTable");
+        table.innerHTML = "";
+
+        leaderboardData.forEach((entry) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
                     <td>${entry.rank}</td>
                     <td>${entry.name}</td>
                     <td>${entry.time}</td>
                     <td>${entry.date}</td>
                 `;
-                table.appendChild(row);
-            });
+          table.appendChild(row);
+        });
+      }
+
+      // Signup functionality
+      function signupUser() {
+        const name = document.getElementById("signupName").value;
+        const email = document.getElementById("signupEmail").value;
+        const password = document.getElementById("signupPassword").value;
+        const agreeTerms = document.getElementById("agreeTerms").checked;
+
+        if (!name || !email || !password) {
+          alert("Please fill in all fields");
+          return;
         }
-        
-        // Signup functionality
-        function signupUser() {
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            const agreeTerms = document.getElementById('agreeTerms').checked;
-            
-            if (!name || !email || !password) {
-                alert('Please fill in all fields');
-                return;
+
+        if (!agreeTerms) {
+          alert("Please agree to participate and donate");
+          return;
+        }
+
+        // In a real app, you would send this data to a server
+        // For this demo, we'll just simulate a successful signup
+        currentUser = { name, email };
+
+        // Create a game tab dynamically
+        const tabButtons = document.querySelector(".tab-buttons");
+        const gameButton = document.createElement("button");
+        gameButton.className = "tab-btn";
+        gameButton.textContent = "Play Game";
+        gameButton.onclick = function () {
+          openTab("game");
+        };
+        tabButtons.appendChild(gameButton);
+
+        // Create game tab content
+        const tabContainer = document.querySelector(".tab-container");
+        const gameTab = document.createElement("div");
+        gameTab.id = "game";
+        gameTab.className = "tab-content";
+        tabContainer.appendChild(gameTab);
+
+        // Move game area into the game tab
+        const gameArea = document.getElementById("gameArea");
+        gameArea.parentNode.removeChild(gameArea);
+        gameTab.appendChild(gameArea);
+
+        // Show game area
+        document.getElementById("gameArea").style.display = "block";
+
+        // Switch to game tab
+        openTab("game");
+
+        // Create nuggets
+        createNuggets();
+
+        alert(
+          `Thank you for your £5.00 donation to RMHC, ${name}! You're now ready to play the Nugget Ninja Challenge.`
+        );
+      }
+
+      // Login functionality
+      function loginUser() {
+        const email = document.getElementById("loginEmail").value;
+        const password = document.getElementById("loginPassword").value;
+
+        if (!email || !password) {
+          alert("Please fill in all fields");
+          return;
+        }
+
+        // In a real app, you would validate credentials against a server
+        // For this demo, we'll just simulate a successful login
+        currentUser = { name: "Player", email };
+
+        // Create a game tab dynamically if it doesn't exist
+        if (!document.getElementById("game")) {
+          const tabButtons = document.querySelector(".tab-buttons");
+          const gameButton = document.createElement("button");
+          gameButton.className = "tab-btn";
+          gameButton.textContent = "Play Game";
+          gameButton.onclick = function () {
+            openTab("game");
+          };
+          tabButtons.appendChild(gameButton);
+
+          // Create game tab content
+          const tabContainer = document.querySelector(".tab-container");
+          const gameTab = document.createElement("div");
+          gameTab.id = "game";
+          gameTab.className = "tab-content";
+          tabContainer.appendChild(gameTab);
+
+          // Move game area into the game tab
+          const gameArea = document.getElementById("gameArea");
+          gameArea.parentNode.removeChild(gameArea);
+          gameTab.appendChild(gameArea);
+
+          // Show game area
+          document.getElementById("gameArea").style.display = "block";
+
+          // Create nuggets
+          createNuggets();
+        }
+
+        // Switch to game tab
+        openTab("game");
+
+        alert(
+          `Welcome back! You're now logged in and ready to play the Nugget Ninja Challenge.`
+        );
+      }
+
+      // Create nugget elements
+      function createNuggets() {
+        const container = document.getElementById("nuggetContainer");
+        container.innerHTML = "";
+
+        for (let i = 0; i < 20; i++) {
+          const nugget = document.createElement("div");
+          nugget.className = "nugget";
+          nugget.onclick = function () {
+            if (gameInProgress && !nugget.classList.contains("eaten")) {
+              eatNugget(nugget);
             }
-            
-            if (!agreeTerms) {
-                alert('Please agree to participate and donate');
-                return;
-            }
-            
-            // In a real app, you would send this data to a server
-            // For this demo, we'll just simulate a successful signup
-            currentUser = { name, email };
-            
-            // Create a game tab dynamically
-            const tabButtons = document.querySelector('.tab-buttons');
-            const gameButton = document.createElement('button');
-            gameButton.className = 'tab-btn';
-            gameButton.textContent = 'Play Game';
-            gameButton.onclick = function() { openTab('game'); };
-            tabButtons.appendChild(gameButton);
-            
-            // Create game tab content
-            const tabContainer = document.querySelector('.tab-container');
-            const gameTab = document.createElement('div');
-            gameTab.id = 'game';
-            gameTab.className = 'tab-content';
-            tabContainer.appendChild(gameTab);
-            
-            // Move game area into the game tab
-            const gameArea = document.getElementById('gameArea');
-            gameArea.parentNode.removeChild(gameArea);
-            gameTab.appendChild(gameArea);
-            
-            // Show game area
-            document.getElementById('gameArea').style.display = 'block';
-            
-            // Switch to game tab
-            openTab('game');
-            
-            // Create nuggets
-            createNuggets();
-            
-            alert(`Thank you for your £5.00 donation to RMHC, ${name}! You're now ready to play the Nugget Ninja Challenge.`);
+          };
+          container.appendChild(nugget);
         }
-        
-        // Login functionality
-        function loginUser() {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            if (!email || !password) {
-                alert('Please fill in all fields');
-                return;
-            }
-            
-            // In a real app, you would validate credentials against a server
-            // For this demo, we'll just simulate a successful login
-            currentUser = { name: "Player", email };
-            
-            // Create a game tab dynamically if it doesn't exist
-            if (!document.getElementById('game')) {
-                const tabButtons = document.querySelector('.tab-buttons');
-                const gameButton = document.createElement('button');
-                gameButton.className = 'tab-btn';
-                gameButton.textContent = 'Play Game';
-                gameButton.onclick = function() { openTab('game'); };
-                tabButtons.appendChild(gameButton);
-                
-                // Create game tab content
-                const tabContainer = document.querySelector('.tab-container');
-                const gameTab = document.createElement('div');
-                gameTab.id = 'game';
-                gameTab.className = 'tab-content';
-                tabContainer.appendChild(gameTab);
-                
-                // Move game area into the game tab
-                const gameArea = document.getElementById('gameArea');
-                gameArea.parentNode.removeChild(gameArea);
-                gameTab.appendChild(gameArea);
-                
-                // Show game area
-                document.getElementById('gameArea').style.display = 'block';
-                
-                // Create nuggets
-                createNuggets();
-            }
-            
-            // Switch to game tab
-            openTab('game');
-            
-            alert(`Welcome back! You're now logged in and ready to play the Nugget Ninja Challenge.`);
+      }
+
+      // Start the game
+      function startGame() {
+        resetGame();
+
+        // Show countdown
+        const countdownOverlay = document.getElementById("countdownOverlay");
+        const countdown = document.getElementById("countdown");
+        countdownOverlay.style.display = "flex";
+
+        let count = 3;
+        countdown.textContent = count;
+
+        const countdownInterval = setInterval(() => {
+          count--;
+          countdown.textContent = count;
+
+          if (count <= 0) {
+            clearInterval(countdownInterval);
+            countdownOverlay.style.display = "none";
+
+            // Start the actual game
+            gameInProgress = true;
+            document.getElementById("startGameBtn").style.display = "none";
+            startTimer();
+          }
+        }, 1000);
+      }
+
+      // Start the timer
+      function startTimer() {
+        timer = setInterval(() => {
+          timeLeft--;
+          updateTimerDisplay();
+
+          if (timeLeft <= 0) {
+            endGame(false);
+          }
+        }, 1000);
+      }
+
+      // Update timer display
+      function updateTimerDisplay() {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        document.getElementById("timer").textContent = `${minutes}:${
+          seconds < 10 ? "0" : ""
+        }${seconds}`;
+      }
+
+      // Handle eating a nugget
+      function eatNugget(nugget) {
+        nugget.classList.add("eaten");
+        nuggetsEaten++;
+
+        if (nuggetsEaten >= 20) {
+          endGame(true);
         }
-        
-        // Create nugget elements
-        function createNuggets() {
-            const container = document.getElementById('nuggetContainer');
-            container.innerHTML = '';
-            
-            for (let i = 0; i < 20; i++) {
-                const nugget = document.createElement('div');
-                nugget.className = 'nugget';
-                nugget.onclick = function() {
-                    if (gameInProgress && !nugget.classList.contains('eaten')) {
-                        eatNugget(nugget);
-                    }
-                };
-                container.appendChild(nugget);
-            }
+      }
+
+      // End the game
+      function endGame(success) {
+        clearInterval(timer);
+        gameInProgress = false;
+
+        if (success) {
+          // Calculate time taken
+          const timeTaken = 300 - timeLeft;
+          const minutes = Math.floor(timeTaken / 60);
+          const seconds = timeTaken % 60;
+          const timeString = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+          // Update and show congratulations
+          document.getElementById("finalTime").textContent = timeString;
+          document.getElementById("congratulations").style.display = "block";
+
+          // Add to leaderboard (in a real app, send to server)
+          const newEntry = {
+            rank: 1, // This would be calculated server-side
+            name: currentUser.name,
+            time: timeString,
+            date: new Date().toLocaleDateString(),
+          };
+
+          // Update leaderboard data (simulate server update)
+          leaderboardData.push(newEntry);
+          leaderboardData.sort((a, b) => {
+            const timeA = a.time.split(":").map(Number);
+            const timeB = b.time.split(":").map(Number);
+            return timeA[0] * 60 + timeA[1] - (timeB[0] * 60 + timeB[1]);
+          });
+
+          // Update rankings
+          leaderboardData.forEach((entry, index) => {
+            entry.rank = index + 1;
+          });
+
+          // Refresh leaderboard display
+          populateLeaderboard();
+        } else {
+          // Show game over
+          document.getElementById("gameOver").style.display = "block";
         }
-        
-        // Start the game
-        function startGame() {
-            resetGame();
-            
-            // Show countdown
-            const countdownOverlay = document.getElementById('countdownOverlay');
-            const countdown = document.getElementById('countdown');
-            countdownOverlay.style.display = 'flex';
-            
-            let count = 3;
-            countdown.textContent = count;
-            
-            const countdownInterval = setInterval(() => {
-                count--;
-                countdown.textContent = count;
-                
-                if (count <= 0) {
-                    clearInterval(countdownInterval);
-                    countdownOverlay.style.display = 'none';
-                    
-                    // Start the actual game
-                    gameInProgress = true;
-                    document.getElementById('startGameBtn').style.display = 'none';
-                    startTimer();
-                }
-            }, 1000);
+      }
+
+      // Reset the game
+      function resetGame() {
+        // Reset variables
+        clearInterval(timer);
+        timeLeft = 300;
+        nuggetsEaten = 0;
+        gameInProgress = false;
+
+        // Reset UI
+        updateTimerDisplay();
+        document.getElementById("startGameBtn").style.display = "block";
+        document.getElementById("congratulations").style.display = "none";
+        document.getElementById("gameOver").style.display = "none";
+
+        // Reset nuggets
+        const nuggets = document.getElementsByClassName("nugget");
+        for (let i = 0; i < nuggets.length; i++) {
+          nuggets[i].classList.remove("eaten");
         }
-        
-        // Start the timer
-        function startTimer() {
-            timer = setInterval(() => {
-                timeLeft--;
-                updateTimerDisplay();
-                
-                if (timeLeft <= 0) {
-                    endGame(false);
-                }
-            }, 1000);
-        }
-        
-        // Update timer display
-        function updateTimerDisplay() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-        }
-        
-        // Handle eating a nugget
-        function eatNugget(nugget) {
-            nugget.classList.add('eaten');
-            nuggetsEaten++;
-            
-            if (nuggetsEaten >= 20) {
-                endGame(true);
-            }
-        }
-        
-        // End the game
-        function endGame(success) {
-            clearInterval(timer);
-            gameInProgress = false;
-            
-            if (success) {
-                // Calculate time taken
-                const timeTaken = 300 - timeLeft;
-                const minutes = Math.floor(timeTaken / 60);
-                const seconds = timeTaken % 60;
-                const timeString = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-                
-                // Update and show congratulations
-                document.getElementById('finalTime').textContent = timeString;
-                document.getElementById('congratulations').style.display = 'block';
-                
-                // Add to leaderboard (in a real app, send to server)
-                const newEntry = {
-                    rank: 1, // This would be calculated server-side
-                    name: currentUser.name,
-                    time: timeString,
-                    date: new Date().toLocaleDateString()
-                };
-                
-                // Update leaderboard data (simulate server update)
-                leaderboardData.push(newEntry);
-                leaderboardData.sort((a, b) => {
-                    const timeA = a.time.split(':').map(Number);
-                    const timeB = b.time.split(':').map(Number);
-                    return (timeA[0] * 60 + timeA[1]) - (timeB[0] * 60 + timeB[1]);
-                });
-                
-                // Update rankings
-                leaderboardData.forEach((entry, index) => {
-                    entry.rank = index + 1;
-                });
-                
-                // Refresh leaderboard display
-                populateLeaderboard();
-            } else {
-                // Show game over
-                document.getElementById('gameOver').style.display = 'block';
-            }
-        }
-        
-        // Reset the game
-        function resetGame() {
-            // Reset variables
-            clearInterval(timer);
-            timeLeft = 300;
-            nuggetsEaten = 0;
-            gameInProgress = false;
-            
-            // Reset UI
-            updateTimerDisplay();
-            document.getElementById('startGameBtn').style.display = 'block';
-            document.getElementById('congratulations').style.display = 'none';
-            document.getElementById('gameOver').style.display = 'none';
-            
-            // Reset nuggets
-            const nuggets = document.getElementsByClassName('nugget');
-            for (let i = 0; i < nuggets.length; i++) {
-                nuggets[i].classList.remove('eaten');
-            }
-        }
+      }
     </script>
-</body>
+  </body>
 </html>
