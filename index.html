@@ -523,12 +523,25 @@
       // Initialize the page
       window.onload = function () {
         populateLeaderboard();
-        // Add the mascot image from the provided images
-        document.getElementById("ninjaMascot").src = "/api/placeholder/200/200"; // This would be replaced with actual image
-        document.getElementById("rmhcLogo").src = "/api/placeholder/120/120"; // This would be replaced with actual logo
-        document.getElementById("mcdonaldsLogo").src =
-          "/api/placeholder/120/120"; // This would be replaced with actual logo
-        document.getElementById("easterEgg").src = "/api/placeholder/80/80"; // This would be replaced with actual image
+
+        // Image error handling
+        const images = document.querySelectorAll("img");
+        images.forEach((img) => {
+          img.onerror = function () {
+            console.error(`Failed to load image: ${img.src}`);
+            const filename = img.src.split("/").pop();
+            img.alt = `Image not found: ${filename}`;
+            img.style.border = "1px dashed red";
+            img.style.padding = "10px";
+            img.style.width = "100px";
+            img.style.height = "80px";
+            img.style.display = "flex";
+            img.style.alignItems = "center";
+            img.style.justifyContent = "center";
+            img.style.textAlign = "center";
+            img.style.fontSize = "12px";
+          };
+        });
       };
 
       // Tab functionality
